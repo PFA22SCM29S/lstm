@@ -1,19 +1,13 @@
 steps:
 # Build the container image
-- name: 'gcr.io/lstm-368609/lstm'
-  args: ['build', '-t', 'gcr.io/lstm-368609/lstm', '.']
-  options:
-  logging: CLOUD_LOGGING_ONLY
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/lstm', '.']
 # Push the container image to Container Registry
-- name: 'gcr.io/lstm-368609/lstm'
-  args: ['push', 'gcr.io/lstm-368609/lstm']
-  options:
-  logging: CLOUD_LOGGING_ONLY
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/lstm']
 # Deploy container image to Cloud Run
-- name: 'gcr.io/lstm-368609/lstm'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args: ['run', 'deploy', 'lstm', '--image', 'gcr.io/lstm-368609/lstm', '--region', 'us-central1', '--platform', 'managed','--port','80']
-  options:
-  logging: CLOUD_LOGGING_ONLY
+  args: ['run', 'deploy', 'lstm', '--image', 'gcr.io/$PROJECT_ID/lstm', '--region', 'us-central1', '--platform', 'managed','--port','80']
 images:
-- gcr.io/lstm-368609/lstm
+- gcr.io/$PROJECT_ID/lstm
