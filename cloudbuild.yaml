@@ -9,7 +9,7 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args: ['run', 'deploy', 'lstm', '--image', 'gcr.io/lstm-368609/lstm', '--region', 'us-central1', '--platform', 'managed','--port','80']
-  options:
-    logging: CLOUD_LOGGING_ONLY    
+options:
+  logging: CLOUD_LOGGING_ONLY    
 images:
 - gcr.io/lstm-368609/lstm
